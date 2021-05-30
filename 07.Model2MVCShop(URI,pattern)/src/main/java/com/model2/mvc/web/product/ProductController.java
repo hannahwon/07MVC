@@ -52,7 +52,7 @@ public class ProductController {
 
 		System.out.println("/product/addProduct : GET");
 
-		return "redirect:/product/addProductView.jsp";
+		return "forward:/product/addProductView.jsp";
 	}
 
 	// @RequestMapping("/addProduct.do")
@@ -63,7 +63,7 @@ public class ProductController {
 		// Business Logic
 		productService.addProduct(product);
 
-		return "/product/addProduct.jsp";
+		return "forward:/product/addProduct.jsp";
 	}
 
 	// @RequestMapping("/getProduct.do")
