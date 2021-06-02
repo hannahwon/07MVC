@@ -37,7 +37,7 @@
 	          <mvc:annotation-driven /> 사용으로 interceptor 를 직접
 	          DefaultAnnotationHandlerMapping 에 주입 할 수 없으니 
 	       	  아래의 설정방법으로 interceptor 주입-->
-   	<mvc:interceptors>
+   <!-- 	<mvc:interceptors>
 		
    		<mvc:interceptor>
 			<mvc:mapping path="/user/**"/>
@@ -46,6 +46,7 @@
    		</mvc:interceptor>
 
    	</mvc:interceptors>
+   	 -->
 	<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
 	 
@@ -63,9 +64,11 @@
 
 	<!--  :: ViewResolver 선언 -->	
     <bean id="viewResolver"
-				class="org.springframework.web.servlet.view.InternalResourceViewResolver" />
-	
-	
+				class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+		<!-- <property name="prefix" value="/WEB-INF/view/"> -->
+		<property name="suffix" value=".jsp">
+		</property></bean>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 	<!-- ////////////////////////////////////////// 추가 ,  변경된 부분 ////////////////////////////////////////////////// -->
 	<!--	
 		■ / 형식의 Mapping 은 모든(정적,동적 자원) 요청시 처리책임

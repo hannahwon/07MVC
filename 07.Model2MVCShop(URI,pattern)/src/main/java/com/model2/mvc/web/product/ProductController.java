@@ -1,8 +1,9 @@
 package com.model2.mvc.web.product;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.util.CookieGenerator;
 
 import com.model2.mvc.common.Page;
@@ -50,17 +53,21 @@ public class ProductController {
 	@RequestMapping(value = "addProduct", method = RequestMethod.GET)
 	public String addProduct() throws Exception {
 
+		
 		System.out.println("/product/addProduct : GET");
 
 		return "forward:/product/addProductView.jsp";
 	}
-
+//	@ModelAttribute("product") Product product
 	// @RequestMapping("/addProduct.do")
 	@RequestMapping(value = "addProduct", method = RequestMethod.POST)
-	public String addProduct(@ModelAttribute("product") Product product) throws Exception {
+	public String addProduct(@ModelAttribute Product product) throws Exception {
 
+		String fileName = fileUpload(product.getFile());
+	
 		System.out.println("/product/addProduct : POST");
 		// Business Logic
+		product.setFileName(fileName);
 		productService.addProduct(product);
 
 		return "forward:/product/addProduct.jsp";
@@ -151,4 +158,30 @@ public class ProductController {
 		return "forward:/product/listProduct.jsp";
 	}
 
+	//@RequestMapping(value="fileForm", method = RequestMethod.GET)
+	public ModelAndView fileForm() throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("fileForm");
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "fileForm", method = RequestMethod.POST)
+	public String fileUpload(MultipartFile file) {
+		
+		String fileName = "";
+		
+		if(file != null || !file.isEmpty()) {
+			
+			fileName = file.getOriginalFilename();
+			try {
+				File file2 = new File("/images/uploadFiles/"+fileName);
+				file.transferTo(file2);
+				
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return fileName;
+	}
 }

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=EUC-KR" pageEncoding="EUC_KR" %>
+<%@ page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -13,7 +13,7 @@
 
 <body bgcolor="#ffffff" text="#000000">
 
-<form name="detailForm" method="post" enctype="multipart/form-data">
+<form name="detailForm" method="post" >
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -94,7 +94,7 @@
 		<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td height="26">
-						${product.fileName}
+						${product.file}
 					</td>
 				</tr>
 			</table>
